@@ -1,0 +1,16 @@
+version: '3.6'
+
+services:
+  fcgi_server:
+    build: .
+    image: fcgi_server:verstable
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+
+  nginx:
+    build: ./nginx
+    image: nginx_server:verstable
+    ports:
+      - 80:8080
+    depends_on:
+      - fcgi_server
